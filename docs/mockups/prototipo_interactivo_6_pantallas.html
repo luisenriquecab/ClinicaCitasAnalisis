@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prototipo Clínico - 6 Pantallas de Control de Citas (UMG)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .touch-target { min-height: 48px; min-width: 48px; }
+    .focus-ring:focus { outline: 3px solid #2563eb; outline-offset: 2px; }
+  </style>
+</head>
+<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col">
+
+  <!-- Header Institucional -->
+  <header class="bg-blue-800 text-white shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-blue-800 text-xl font-bold shadow">
+          <i class="fa-solid fa-hospital-user"></i>
+        </div>
+        <div>
+          <h1 class="text-lg font-bold leading-tight">Clínica UMG - Control de Citas Médicas</h1>
+          <p class="text-xs text-blue-200">Análisis de Sistemas II · Demostración de Experiencia de Usuario (UX/UI)</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-2 mt-2 sm:mt-0 text-xs">
+        <span class="bg-blue-900 px-3 py-1.5 rounded-full border border-blue-400/40 text-blue-100">
+          <i class="fa-solid fa-universal-access mr-1 text-amber-300"></i> WCAG 2.1 AA Compliant
+        </span>
+        <span class="bg-emerald-600 px-3 py-1.5 rounded-full text-white font-medium">
+          <i class="fa-solid fa-signal mr-1"></i> Clean Architecture Online
+        </span>
+      </div>
+    </div>
+
+    <!-- Navegador de Mockups (Las 6 Pantallas Obligatorias) -->
+    <nav class="bg-blue-900 border-t border-blue-700/50 overflow-x-auto">
+      <div class="max-w-7xl mx-auto px-4 flex space-x-1 py-1">
+        <button onclick="mostrarPantalla(1)" id="tab-1" class="tab-btn px-4 py-2.5 rounded-t-lg text-sm font-semibold transition bg-white text-blue-900">
+          <i class="fa-solid fa-id-card mr-1.5"></i> 1. Login & Onboarding
+        </button>
+        <button onclick="mostrarPantalla(2)" id="tab-2" class="tab-btn px-4 py-2.5 rounded-t-lg text-sm font-semibold transition text-blue-200 hover:text-white">
+          <i class="fa-solid fa-calendar-plus mr-1.5"></i> 2. Agendamiento Asistido
+        </button>
+        <button onclick="mostrarPantalla(3)" id="tab-3" class="tab-btn px-4 py-2.5 rounded-t-lg text-sm font-semibold transition text-blue-200 hover:text-white">
+          <i class="fa-solid fa-clock-rotate-left mr-1.5"></i> 3. Mis Citas (Paciente)
+        </button>
+        <button onclick="mostrarPantalla(4)" id="tab-4" class="tab-btn px-4 py-2.5 rounded-t-lg text-sm font-semibold transition text-blue-200 hover:text-white">
+          <i class="fa-solid fa-stethoscope mr-1.5"></i> 4. Agenda del Médico
+        </button>
+        <button onclick="mostrarPantalla(5)" id="tab-5" class="tab-btn px-4 py-2.5 rounded-t-lg text-sm font-semibold transition text-blue-200 hover:text-white">
+          <i class="fa-solid fa-desktop mr-1.5"></i> 5. Tablero Recepción
+        </button>
+        <button onclick="mostrarPantalla(6)" id="tab-6" class="tab-btn px-4 py-2.5 rounded-t-lg text-sm font-semibold transition text-blue-200 hover:text-white">
+          <i class="fa-solid fa-chart-pie mr-1.5"></i> 6. Dashboard Inasistencias
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Contenedor Principal de Vistas -->
+  <main class="max-w-7xl mx-auto p-4 md:p-6 flex-1 w-full">
+
+    <!-- ============================================== -->
+    <!-- PANTALLA 1: LOGIN & ONBOARDING ACCESIBLE       -->
+    <!-- ============================================== -->
+    <section id="pantalla-1" class="pantalla-seccion block max-w-md mx-auto">
+      <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-slate-200">
+        <div class="text-center mb-6">
+          <div class="w-16 h-16 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center mx-auto text-2xl mb-3">
+            <i class="fa-solid fa-shield-heart"></i>
+          </div>
+          <h2 class="text-2xl font-bold text-slate-800">Acceso a Consultas</h2>
+          <p class="text-sm text-slate-500 mt-1">Ingresa con tu Documento Personal de Identificación (DPI)</p>
+        </div>
+
+        <form onsubmit="event.preventDefault(); mostrarPantalla(2);" class="space-y-4">
+          <div>
+            <label for="dpi" class="block text-sm font-medium text-slate-700 mb-1">DPI del Paciente (13 dígitos)</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">
+                <i class="fa-solid fa-address-card"></i>
+              </span>
+              <input type="text" id="dpi" placeholder="Ej: 1234 56789 0101" value="1234 56789 0101"
+                class="w-full pl-10 pr-3 py-3 rounded-lg border border-slate-300 focus:ring-2 focus:ring-blue-600 focus:border-blue-600 outline-none transition text-base" />
+            </div>
+          </div>
+
+          <div>
+            <label for="canal" class="block text-sm font-medium text-slate-700 mb-1">Enviar código de acceso seguro por:</label>
+            <div class="grid grid-cols-2 gap-2">
+              <button type="button" class="py-2.5 px-3 border-2 border-emerald-500 bg-emerald-50 text-emerald-800 rounded-lg font-medium flex items-center justify-center space-x-2 touch-target">
+                <i class="fa-brands fa-whatsapp text-emerald-600 text-lg"></i>
+                <span>WhatsApp</span>
+              </button>
+              <button type="button" class="py-2.5 px-3 border border-slate-300 text-slate-600 rounded-lg font-medium flex items-center justify-center space-x-2 touch-target">
+                <i class="fa-solid fa-comment-sms text-slate-500 text-lg"></i>
+                <span>SMS</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <button type="submit" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-3.5 px-4 rounded-xl shadow-md transition touch-target flex items-center justify-center space-x-2">
+              <span>Ingresar y Ver Mis Citas</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </form>
+
+        <div class="mt-6 pt-4 border-t border-slate-100 flex justify-between items-center text-xs text-slate-500">
+          <span><i class="fa-solid fa-lock mr-1 text-slate-400"></i> Cifrado TLS 1.3</span>
+          <button class="text-blue-600 hover:underline font-medium">¿Necesitas ayuda asistida?</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- PANTALLA 2: AGENDAMIENTO ASISTIDO (4 PASOS)    -->
+    <!-- ============================================== -->
+    <section id="pantalla-2" class="pantalla-seccion hidden max-w-4xl mx-auto">
+      <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8 border border-slate-200">
+        <!-- Indicador de Progreso Heurística 1 -->
+        <div class="mb-8">
+          <div class="flex justify-between items-center mb-2">
+            <span class="text-xs font-semibold text-blue-700 uppercase tracking-wider">Paso 3 de 4: Selección de Horario Disponible</span>
+            <span class="text-xs text-slate-400">Duración estimada: 1 min</span>
+          </div>
+          <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+            <div class="bg-blue-600 h-2.5 rounded-full w-3/4 transition-all duration-500"></div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Tarjeta Médico Seleccionado -->
+          <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center space-x-3 mb-3">
+                <div class="w-12 h-12 bg-blue-700 text-white rounded-full flex items-center justify-center text-xl font-bold">
+                  RM
+                </div>
+                <div>
+                  <h3 class="font-bold text-slate-800 leading-tight">Dr. Roberto Mendizábal</h3>
+                  <p class="text-xs text-blue-600 font-semibold">Cardiología · Col. 4521</p>
+                </div>
+              </div>
+              <p class="text-xs text-slate-500 mb-4">Consultorio 204, Edificio Médico UMG Central. Turno matutino y vespertino.</p>
+              <div class="bg-blue-100/60 text-blue-900 p-2.5 rounded-lg text-xs">
+                <i class="fa-solid fa-circle-check text-blue-600 mr-1"></i> <strong>Política de cancelación:</strong> Gratis hasta 2 horas antes de la cita.
+              </div>
+            </div>
+            <button onclick="mostrarPantalla(1)" class="mt-4 text-xs text-slate-500 hover:text-slate-800 underline">Cambiar de médico</button>
+          </div>
+
+          <!-- Selector de Franjas Horarias Disponibles -->
+          <div class="md:col-span-2 space-y-4">
+            <div class="flex justify-between items-center">
+              <h4 class="font-bold text-slate-800">Franjas Disponibles para Mañana</h4>
+              <span class="text-xs text-slate-500">Franjas de 30 min</span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <button type="button" class="py-3 px-2 border-2 border-emerald-500 bg-emerald-50 hover:bg-emerald-100 text-emerald-900 rounded-xl font-semibold text-sm transition touch-target flex flex-col items-center">
+                <span>08:30 AM</span>
+                <span class="text-[10px] text-emerald-600 font-normal">Disponible</span>
+              </button>
+              <button type="button" class="py-3 px-2 border border-slate-200 bg-slate-100 text-slate-400 rounded-xl text-sm cursor-not-allowed touch-target flex flex-col items-center">
+                <span class="line-through">09:00 AM</span>
+                <span class="text-[10px] text-slate-400">Ocupado</span>
+              </button>
+              <button type="button" class="py-3 px-2 border-2 border-blue-600 bg-blue-600 text-white rounded-xl font-bold text-sm shadow-md touch-target flex flex-col items-center">
+                <span>09:30 AM</span>
+                <span class="text-[10px] text-blue-100">Seleccionado</span>
+              </button>
+              <button type="button" class="py-3 px-2 border-2 border-emerald-500 bg-emerald-50 hover:bg-emerald-100 text-emerald-900 rounded-xl font-semibold text-sm transition touch-target flex flex-col items-center">
+                <span>10:00 AM</span>
+                <span class="text-[10px] text-emerald-600 font-normal">Disponible</span>
+              </button>
+              <button type="button" class="py-3 px-2 border-2 border-emerald-500 bg-emerald-50 hover:bg-emerald-100 text-emerald-900 rounded-xl font-semibold text-sm transition touch-target flex flex-col items-center">
+                <span>10:30 AM</span>
+                <span class="text-[10px] text-emerald-600 font-normal">Disponible</span>
+              </button>
+              <button type="button" class="py-3 px-2 border border-slate-200 bg-slate-100 text-slate-400 rounded-xl text-sm cursor-not-allowed touch-target flex flex-col items-center">
+                <span class="line-through">11:00 AM</span>
+                <span class="text-[10px] text-slate-400">Ocupado</span>
+              </button>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 mb-1">Motivo de tu consulta</label>
+              <textarea rows="2" class="w-full p-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 outline-none" placeholder="Ej: Dolor en el pecho al caminar y chequeo de presión..."></textarea>
+            </div>
+
+            <div class="flex space-x-3 pt-2">
+              <button onclick="mostrarPantalla(3)" class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 px-4 rounded-xl shadow transition touch-target flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-check"></i>
+                <span>Confirmar Cita para 09:30 AM</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- PANTALLA 3: MIS CITAS (PACIENTE)               -->
+    <!-- ============================================== -->
+    <section id="pantalla-3" class="pantalla-seccion hidden max-w-4xl mx-auto space-y-4">
+      <div class="flex justify-between items-center mb-2">
+        <div>
+          <h2 class="text-xl font-bold text-slate-800">Mis Citas Programadas</h2>
+          <p class="text-xs text-slate-500">Paciente: Carmen Sandoval de León (DPI: 1234 56789 0101)</p>
+        </div>
+        <button onclick="mostrarPantalla(2)" class="bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold py-2 px-3.5 rounded-lg shadow transition flex items-center space-x-1.5 touch-target">
+          <i class="fa-solid fa-plus"></i>
+          <span>Nueva Cita</span>
+        </button>
+      </div>
+
+      <!-- Tarjeta Cita Próxima -->
+      <div class="bg-white rounded-2xl shadow-md p-5 border-l-4 border-blue-600 border-t border-r border-b border-slate-200">
+        <div class="flex flex-wrap justify-between items-start gap-2 mb-3">
+          <div class="flex items-center space-x-3">
+            <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-xl flex items-center justify-center text-xl">
+              <i class="fa-solid fa-heart-pulse"></i>
+            </div>
+            <div>
+              <h3 class="font-bold text-slate-800 text-base">Consulta de Cardiología</h3>
+              <p class="text-xs text-slate-500">Dr. Roberto Mendizábal · Consultorio 204</p>
+            </div>
+          </div>
+          <span class="bg-blue-100 text-blue-800 text-xs px-2.5 py-1 rounded-full font-semibold">
+            <i class="fa-solid fa-clock mr-1"></i> Programada (Mañana)
+          </span>
+        </div>
+
+        <div class="bg-slate-50 rounded-xl p-3 grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs mb-4">
+          <div><span class="text-slate-400 block">Fecha y Hora:</span> <strong class="text-slate-700">10 Nov 2026, 09:30 AM</strong></div>
+          <div><span class="text-slate-400 block">Recordatorio:</span> <strong class="text-emerald-700"><i class="fa-solid fa-bell"></i> Activo (WhatsApp)</strong></div>
+          <div><span class="text-slate-400 block">Canal Reserva:</span> <strong class="text-slate-700">App Móvil</strong></div>
+        </div>
+
+        <div class="flex flex-wrap gap-2 justify-end">
+          <button onclick="mostrarPantalla(2)" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold py-2 px-3 rounded-lg transition touch-target">
+            <i class="fa-solid fa-arrows-rotate mr-1"></i> Reprogramar Horario
+          </button>
+          <button onclick="confirmarCancelacion()" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 text-xs font-semibold py-2 px-3 rounded-lg transition touch-target">
+            <i class="fa-solid fa-xmark mr-1"></i> Cancelar Cita
+          </button>
+        </div>
+      </div>
+
+      <!-- Tarjeta Historial -->
+      <div class="bg-white rounded-2xl shadow-sm p-4 border border-slate-200 opacity-75">
+        <div class="flex justify-between items-center text-xs">
+          <div>
+            <h4 class="font-semibold text-slate-700">Dra. Claudia Morales · Pediatría</h4>
+            <p class="text-slate-400">14 Oct 2026, 11:00 AM · Motivo: Control de crecimiento</p>
+          </div>
+          <span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-medium">Atendida</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- PANTALLA 4: AGENDA DEL MÉDICO                  -->
+    <!-- ============================================== -->
+    <section id="pantalla-4" class="pantalla-seccion hidden max-w-5xl mx-auto space-y-4">
+      <div class="bg-white rounded-2xl shadow-md p-5 border border-slate-200 flex flex-wrap justify-between items-center gap-4">
+        <div class="flex items-center space-x-3">
+          <div class="w-12 h-12 bg-indigo-700 text-white rounded-full flex items-center justify-center text-xl font-bold">
+            RM
+          </div>
+          <div>
+            <h2 class="text-lg font-bold text-slate-800">Agenda Diaria: Dr. Roberto Mendizábal</h2>
+            <p class="text-xs text-slate-500">Jornada Activa: 08:00 - 16:00 hrs · Especialidad: Cardiología</p>
+          </div>
+        </div>
+        <div class="flex space-x-2">
+          <button class="bg-slate-100 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-200">
+            <i class="fa-solid fa-chevron-left mr-1"></i> Día Anterior
+          </button>
+          <span class="px-3 py-1.5 bg-blue-50 text-blue-800 rounded-lg text-xs font-bold border border-blue-200">
+            Hoy: 27 de Octubre, 2026
+          </span>
+          <button class="bg-slate-100 px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-700 hover:bg-slate-200">
+            Día Siguiente <i class="fa-solid fa-chevron-right ml-1"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Tabla / Timeline de Consultas del Día -->
+      <div class="bg-white rounded-2xl shadow-md overflow-hidden border border-slate-200">
+        <table class="w-full text-left border-collapse text-xs md:text-sm">
+          <thead>
+            <tr class="bg-slate-50 border-b border-slate-200 text-slate-600">
+              <th class="p-3.5 font-bold">Hora</th>
+              <th class="p-3.5 font-bold">Paciente</th>
+              <th class="p-3.5 font-bold">Motivo</th>
+              <th class="p-3.5 font-bold">Estado</th>
+              <th class="p-3.5 font-bold text-right">Acciones Clínicas</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+            <!-- Cita 1: Atendida -->
+            <tr class="hover:bg-slate-50/50">
+              <td class="p-3.5 font-semibold text-slate-700">08:00 - 08:30</td>
+              <td class="p-3.5">
+                <span class="font-bold text-slate-800 block">Carlos Méndez</span>
+                <span class="text-xs text-slate-400">DPI: 5543 21980 0101</span>
+              </td>
+              <td class="p-3.5 text-slate-600">Control postquirúrgico</td>
+              <td class="p-3.5">
+                <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+                  Atendida
+                </span>
+              </td>
+              <td class="p-3.5 text-right text-slate-400 text-xs">Finalizado</td>
+            </tr>
+
+            <!-- Cita 2: En Atención -->
+            <tr class="bg-amber-50/40">
+              <td class="p-3.5 font-bold text-amber-900">08:30 - 09:00</td>
+              <td class="p-3.5">
+                <span class="font-bold text-slate-800 block">Luis Enrique Cab</span>
+                <span class="text-xs text-slate-500">DPI: 9876 54321 0101</span>
+              </td>
+              <td class="p-3.5 text-slate-700">Evaluación cardiovascular de rutina</td>
+              <td class="p-3.5">
+                <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-200 text-amber-900 animate-pulse">
+                  En Atención
+                </span>
+              </td>
+              <td class="p-3.5 text-right space-x-1">
+                <button class="bg-emerald-600 text-white font-semibold text-xs px-3 py-1.5 rounded-lg shadow hover:bg-emerald-700 touch-target">
+                  Finalizar Consulta
+                </button>
+              </td>
+            </tr>
+
+            <!-- Cita 3: Próxima / Inasistencia -->
+            <tr class="hover:bg-slate-50/50">
+              <td class="p-3.5 font-semibold text-slate-700">09:30 - 10:00</td>
+              <td class="p-3.5">
+                <span class="font-bold text-slate-800 block">Carmen Sandoval</span>
+                <span class="text-xs text-slate-400">DPI: 1234 56789 0101</span>
+              </td>
+              <td class="p-3.5 text-slate-600">Chequeo de presión</td>
+              <td class="p-3.5">
+                <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
+                  Confirmada
+                </span>
+              </td>
+              <td class="p-3.5 text-right space-x-1">
+                <button class="bg-blue-600 text-white text-xs px-2.5 py-1.5 rounded-lg hover:bg-blue-700">
+                  Iniciar
+                </button>
+                <button onclick="marcarNoShow()" class="bg-rose-100 text-rose-700 border border-rose-300 text-xs px-2.5 py-1.5 rounded-lg hover:bg-rose-200">
+                  Marcar No-Show
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- PANTALLA 5: TABLERO CENTRAL DE RECEPCIÓN       -->
+    <!-- ============================================== -->
+    <section id="pantalla-5" class="pantalla-seccion hidden max-w-6xl mx-auto space-y-4">
+      <div class="bg-white rounded-2xl shadow-md p-5 border border-slate-200">
+        <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+          <div>
+            <h2 class="text-xl font-bold text-slate-800">Módulo de Recepción y Ventanilla Rápida</h2>
+            <p class="text-xs text-slate-500">Búsqueda rápida instantánea y agendamiento exprés</p>
+          </div>
+          <div class="flex space-x-2">
+            <button onclick="mostrarPantalla(2)" class="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs py-2 px-3.5 rounded-xl shadow transition flex items-center space-x-1.5 touch-target">
+              <i class="fa-solid fa-calendar-plus"></i>
+              <span>+ Cita Exprés (F2)</span>
+            </button>
+            <button onclick="alert('Actualizando agenda en vivo desde SQL Server...');" class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs py-2 px-3 rounded-xl">
+              <i class="fa-solid fa-rotate"></i> F5
+            </button>
+          </div>
+        </div>
+
+        <!-- Buscador Universal con Autocompletado -->
+        <div class="relative mb-4">
+          <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
+            <i class="fa-solid fa-magnifying-glass text-lg"></i>
+          </span>
+          <input type="text" placeholder="Buscar paciente por Nombre, DPI (13 dígitos) o Teléfono móvil..."
+            class="w-full pl-11 pr-4 py-3 rounded-xl border border-slate-300 text-sm focus:ring-2 focus:ring-blue-600 outline-none" />
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="bg-blue-50 border border-blue-200 p-3.5 rounded-xl text-center">
+            <span class="text-xs text-blue-700 font-semibold uppercase">Total Citas Hoy</span>
+            <span class="block text-2xl font-bold text-blue-900 mt-1">28</span>
+          </div>
+          <div class="bg-emerald-50 border border-emerald-200 p-3.5 rounded-xl text-center">
+            <span class="text-xs text-emerald-700 font-semibold uppercase">Atendidas</span>
+            <span class="block text-2xl font-bold text-emerald-900 mt-1">16</span>
+          </div>
+          <div class="bg-amber-50 border border-amber-200 p-3.5 rounded-xl text-center">
+            <span class="text-xs text-amber-700 font-semibold uppercase">En Sala / Pendientes</span>
+            <span class="block text-2xl font-bold text-amber-900 mt-1">9</span>
+          </div>
+          <div class="bg-rose-50 border border-rose-200 p-3.5 rounded-xl text-center">
+            <span class="text-xs text-rose-700 font-semibold uppercase">Inasistencias</span>
+            <span class="block text-2xl font-bold text-rose-900 mt-1">3</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================== -->
+    <!-- PANTALLA 6: DASHBOARD ANALÍTICO INASISTENCIAS   -->
+    <!-- ============================================== -->
+    <section id="pantalla-6" class="pantalla-seccion hidden max-w-6xl mx-auto space-y-5">
+      <div class="bg-white rounded-2xl shadow-md p-5 border border-slate-200 flex flex-wrap justify-between items-center gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-slate-800">Auditoría y Analítica de Inasistencias (No-Shows)</h2>
+          <p class="text-xs text-slate-500">Métricas acumuladas del periodo: Últimos 30 días</p>
+        </div>
+        <div class="flex space-x-2">
+          <button onclick="alert('Exportando reporte a formato Excel (.xlsx)...');" class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-semibold py-2 px-3 rounded-lg shadow transition flex items-center space-x-1.5">
+            <i class="fa-solid fa-file-excel"></i> <span>Exportar Excel</span>
+          </button>
+          <button onclick="window.print();" class="bg-blue-700 hover:bg-blue-800 text-white text-xs font-semibold py-2 px-3 rounded-lg shadow transition flex items-center space-x-1.5">
+            <i class="fa-solid fa-file-pdf"></i> <span>Exportar PDF</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Métricas KPIs -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white p-5 rounded-2xl shadow border border-slate-200">
+          <span class="text-xs font-semibold text-slate-400 uppercase">Citas Agendadas</span>
+          <span class="block text-3xl font-extrabold text-slate-800 mt-1">142</span>
+          <span class="text-[11px] text-slate-500">100% de ocupación teórica</span>
+        </div>
+        <div class="bg-white p-5 rounded-2xl shadow border border-slate-200">
+          <span class="text-xs font-semibold text-rose-500 uppercase">Inasistencias Reales</span>
+          <span class="block text-3xl font-extrabold text-rose-600 mt-1">18</span>
+          <span class="text-[11px] text-rose-500 font-medium"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Paciente no asistió</span>
+        </div>
+        <div class="bg-white p-5 rounded-2xl shadow border border-slate-200">
+          <span class="text-xs font-semibold text-amber-500 uppercase">Tasa Global de No-Show</span>
+          <span class="block text-3xl font-extrabold text-amber-600 mt-1">12.68%</span>
+          <span class="text-[11px] text-emerald-600 font-medium"><i class="fa-solid fa-arrow-down mr-1"></i> -3.2% vs mes anterior</span>
+        </div>
+        <div class="bg-white p-5 rounded-2xl shadow border border-slate-200">
+          <span class="text-xs font-semibold text-blue-500 uppercase">Horas Clínicas Perdidas</span>
+          <span class="block text-3xl font-extrabold text-blue-800 mt-1">9.0 hrs</span>
+          <span class="text-[11px] text-slate-500">Calculado a 30m por cita</span>
+        </div>
+      </div>
+
+      <!-- Desglose por Médico y Especialidad -->
+      <div class="bg-white rounded-2xl shadow-md p-5 border border-slate-200">
+        <h3 class="font-bold text-slate-800 text-sm mb-3">Tasa de Inasistencias por Médico Especialista</h3>
+        <div class="space-y-4">
+          <div>
+            <div class="flex justify-between text-xs font-semibold mb-1">
+              <span>Dr. Roberto Mendizábal (Cardiología)</span>
+              <span class="text-amber-600">8 inasistencias de 60 citas (13.33%)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+              <div class="bg-amber-500 h-3 rounded-full" style="width: 13.33%"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs font-semibold mb-1">
+              <span>Dra. Claudia Morales (Pediatría)</span>
+              <span class="text-rose-600">7 inasistencias de 42 citas (16.67%)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+              <div class="bg-rose-500 h-3 rounded-full" style="width: 16.67%"></div>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between text-xs font-semibold mb-1">
+              <span>Dr. Juan Fernando Estrada (Medicina General)</span>
+              <span class="text-emerald-600">3 inasistencias de 40 citas (7.50%)</span>
+            </div>
+            <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
+              <div class="bg-emerald-500 h-3 rounded-full" style="width: 7.5%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-white border-t border-slate-200 py-3 text-center text-xs text-slate-500">
+    Universidad Mariano Gálvez de Guatemala · Facultad de Ingeniería en Sistemas · Proyecto Final Análisis de Sistemas II
+  </footer>
+
+  <script>
+    function mostrarPantalla(num) {
+      document.querySelectorAll('.pantalla-seccion').forEach(sec => sec.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('bg-white', 'text-blue-900');
+        btn.classList.add('text-blue-200');
+      });
+
+      const seccion = document.getElementById('pantalla-' + num);
+      const tab = document.getElementById('tab-' + num);
+      if (seccion) seccion.classList.remove('hidden');
+      if (tab) {
+        tab.classList.remove('text-blue-200');
+        tab.classList.add('bg-white', 'text-blue-900');
+      }
+    }
+
+    function confirmarCancelacion() {
+      if (confirm("¿Está seguro que desea cancelar su cita médica con el Dr. Roberto Mendizábal? Esta acción liberará el espacio para otros pacientes.")) {
+        alert("Cita cancelada con éxito sin cargos (cancelada con más de 2 horas de anticipación). Notificación enviada al médico.");
+        mostrarPantalla(2);
+      }
+    }
+
+    function marcarNoShow() {
+      const motivo = prompt("Ingrese la observación de inasistencia para la auditoría clínica:", "Paciente no se presentó a su turno");
+      if (motivo !== null) {
+        alert("Inasistencia registrada correctamente en el expediente y contabilizada para el informe de No-Shows.");
+        mostrarPantalla(6);
+      }
+    }
+  </script>
+</body>
+</html>
