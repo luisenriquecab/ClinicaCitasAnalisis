@@ -7,21 +7,21 @@
 
 ---
 
-## 📌 Descripción General del Proyecto
+##  Descripción General del Proyecto
 Proyecto final de diseño y aseguramiento de la calidad de software para un **Sistema de Control de Citas Médicas Multidisciplinario**. Resuelve la sobrecarga de agendamiento multicanal y ataca activamente la tasa de inasistencia (*No-Show*) mediante recordatorios automatizados y analítica clínica.
 
 El proyecto está diseñado bajo **Clean Architecture** (Arquitectura Limpia) en el backend y el patrón **MVVM** para clientes móviles, cumpliendo estrictamente con la rúbrica oficial de **15.0 puntos** (Semanas 13 a 18).
 
 ---
 
-## 📂 Estructura del Repositorio
+##  Estructura del Repositorio
 
 ```plaintext
 ClinicaCitas/
 ├── docs/
-│   ├── INFORME_FINAL_PROYECTO_SISTEMA_CITAS_UMG.md  # 📄 Documento Integrado Maestro (Entregables 1, 2, 3, 4 y Defensa)
+│   ├── INFORME_FINAL_PROYECTO_SISTEMA_CITAS_UMG.md  #  Documento Integrado Maestro (Entregables 1, 2, 3, 4 y Defensa)
 │   └── mockups/
-│       └── prototipo_interactivo_6_pantallas.html   # 🌐 Prototipo interactivo de las 6 pantallas clínicas (WCAG 2.1 AA)
+│       └── prototipo_interactivo_6_pantallas.html   #  Prototipo interactivo de las 6 pantallas clínicas (WCAG 2.1 AA)
 ├── src/
 │   ├── Clinica.Domain/          # Núcleo de entidades (Cita, Medico, Paciente), enums e invariantes
 │   ├── Clinica.Application/     # Casos de uso, DTOs, interfaces de servicio y motor de concurrencia
@@ -35,7 +35,7 @@ ClinicaCitas/
 
 ---
 
-## 🚀 Alineación con los 4 Entregables de la Rúbrica
+##  Alineación con los 4 Entregables de la Rúbrica
 
 | Entregable | Ponderación | Estado | Contenido Implementado |
 | :--- | :---: | :---: | :--- |
@@ -47,7 +47,7 @@ ClinicaCitas/
 
 ---
 
-## 🛠️ Cómo Ejecutar el Proyecto en Local
+##  Cómo Ejecutar el Proyecto en Local
 
 ### Prerrequisitos
 * [.NET SDK 9.0 o 10.0](https://dotnet.microsoft.com/)
@@ -71,6 +71,6 @@ Abre en tu navegador el archivo ubicado en:
 
 ---
 
-## 👥 Equipo de Trabajo
+##  Equipo de Trabajo
 * **Luis Enrique Cab Caal** (Carné: `0902-23-11039`)
 * Integrantes del equipo del curso Análisis de Sistemas II · UMG
